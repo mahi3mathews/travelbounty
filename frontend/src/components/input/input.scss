@@ -1,0 +1,53 @@
+@import "../../App.scss";
+.input {
+    &-field {
+        flex: 1;
+        padding: 15px;
+        font-size: 16px;
+        &::placeholder {
+            font-family: "Ubuntu", sans-serif;
+            font-size: 18px;
+            color: $tertiaryColor;
+        }
+        border: none;
+        background-color: transparent !important;
+        &:focus-visible {
+            outline: none;
+        }
+    }
+    &-field-error {
+        margin-top: 15px;
+    }
+    &-container {
+        display: flex;
+        border-bottom: 2px solid $tertiaryColor;
+        justify-content: space-between;
+        &.error {
+            border-bottom: 2px solid $errorColor;
+            .input-field {
+                color: $errorColor;
+                &::placeholder {
+                    color: $errorColor;
+                }
+            }
+        }
+        &.primary {
+            border-bottom: 2px solid $primaryColor;
+            .input-field {
+                color: $primaryColor;
+                &::placeholder {
+                    color: $primaryColor;
+                }
+            }
+        }
+        &.secondary {
+            border-bottom: 2px solid $secondaryColor;
+            .input-field {
+                color: $secondaryColor;
+                &::placeholder {
+                    color: $secondaryColor;
+                }
+            }
+        }
+    }
+}

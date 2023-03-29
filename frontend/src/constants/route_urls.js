@@ -1,0 +1,14 @@
+export const HOME_URL = "/";
+export const SERVICE_URL = "/travel-services";
+export const SERVICE_DETAILS_URL = "/travel-services/details";
+export const PAYMENTS_URL = "/payments";
+export const AGENTS_URL = "/travel-agents";
+export const COMMISSIONS_URL = "/commissions";
+export const ITINERARY_URL = "/itineraries";
+export const BOOKING_URL = "/bookings";
+export const ADD_BOOKING_URL = "/bookings/add";
+export const ADD_SERVICE_URL = "/services/add";
+export const ADD_ITINERARY_URL = "/itinerary/add";
+export const REGISTER_URL = "/register";
+export const LOGIN_URL = "/login";
+export const LOGOUT_URL = "/logout";

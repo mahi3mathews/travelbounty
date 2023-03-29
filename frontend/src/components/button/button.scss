@@ -1,0 +1,30 @@
+@import "../../App.scss";
+
+.btn {
+    &-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    border-radius: 6px;
+    padding: 13px 20px;
+    text-align: center;
+    border: none;
+    outline: none;
+    &-error {
+        margin-top: 15px;
+        text-align: center;
+    }
+    &.primary {
+        background-color: $primaryColor;
+    }
+    &.secondary {
+        background-color: $secondaryColor;
+    }
+    &.tertiary {
+        background-color: $tertiaryColor;
+    }
+    &.transparent {
+        background-color: transparent;
+    }
+}

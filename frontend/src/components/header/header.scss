@@ -1,0 +1,64 @@
+@import "../../App.scss";
+
+.header {
+    &.primary {
+        color: $primaryColor;
+    }
+    &.secondary {
+        color: $secondaryColor;
+    }
+    &.tertiary {
+        color: $tertiaryColor;
+    }
+    &.error {
+        color: $errorColor;
+    }
+    &.fW300 {
+        font-weight: 300;
+    }
+    &.fW400 {
+        font-weight: 400;
+    }
+    &.fW500 {
+        font-weight: 500;
+    }
+    &.fW600 {
+        font-weight: 600;
+    }
+    &.fW700 {
+        font-weight: 700;
+    }
+    &.fS12 {
+        font-size: 12px;
+    }
+    &.fS14 {
+        font-size: 14px;
+    }
+    &.fS16 {
+        font-size: 16px;
+    }
+    &.fS17 {
+        font-size: 17px;
+    }
+    &.fS18 {
+        font-size: 18px;
+    }
+    &.fS21 {
+        font-size: 21px;
+    }
+    &.fS24 {
+        font-size: 24px;
+    }
+    &.fS26 {
+        font-size: 26px;
+    }
+    &.fS28 {
+        font-size: 28px;
+    }
+    &.fS32 {
+        font-size: 32px;
+    }
+    &.fS48 {
+        font-size: 48px;
+    }
+}

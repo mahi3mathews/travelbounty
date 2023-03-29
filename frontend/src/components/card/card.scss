@@ -1,0 +1,9 @@
+@import "../../App.scss";
+.card {
+    border-radius: 30px;
+    background-color: $secondaryColor;
+    box-shadow: 4px 6px 10px rgba(43, 70, 179, 0.05),
+        0 15px 40px rgba(166, 173, 201, 0.2);
+    padding: 30px;
+    max-width: inherit;
+}
