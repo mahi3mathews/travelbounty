@@ -1,17 +1,54 @@
 import "./travelService.scss";
-import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import Table from "react-bootstrap/Table";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/header/Header";
 import { ADMIN } from "../../constants/user_roles";
+import add from "../../icons/add-secondary.svg";
+import Button from "../../components/button/Button";
+import { ADD_SERVICE_URL } from "../../constants/route_urls";
+import { useNavigate } from "react-router-dom";
+import { fetchTravelServicesAsync } from "../../api/travelServiceApi";
+import { useEffect, useState } from "react";
+import { updateServiceList } from "../../redux/travelServices/travelServiceReducer";
+import { capitalize } from "@mui/material";
+import { fetchCommissionsAsync } from "../../api/commissionApi";
+import { updateCommissions } from "../../redux/commissions/commissionReducer";
+import { Spinner } from "react-bootstrap";
 
 const TravelServices = () => {
-    const [travelServices, commissionRates, userRole] = useSelector(
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [isLoading, setLoading] = useState(false);
+    const [travelServices, commissionRates, userRole, userId] = useSelector(
         (states) => [
             states.travelServices.serviceList,
             states?.commissionRates?.commissions ?? [],
             states?.users?.userDetails?.role ?? "",
+            states?.users?.userDetails?.userId,
         ]
     );
+
+    const fetchServices = async () => {
+        let commissionRes = await fetchCommissionsAsync(userId);
+        if (commissionRes?.length > 0) {
+            dispatch(updateCommissions(commissionRes));
+        }
+
+        let res = await fetchTravelServicesAsync();
+        if (res.length > 0) {
+            dispatch(updateServiceList(res));
+        }
+        setTimeout(() => {
+            setLoading(false);
+        }, 1500);
+    };
+
+    useEffect(() => {
+        if (userId) {
+            setLoading(true);
+            fetchServices();
+        }
+    }, [userId]);
 
     const serviceColumns = ["Name", "Type", "Price", "Commission"];
 
@@ -20,71 +57,103 @@ const TravelServices = () => {
             case "Name":
                 return serviceRow?.name ?? "-";
             case "Type":
-                return serviceRow?.type ?? "-";
+                return capitalize(serviceRow?.type?.toLowerCase()) ?? "-";
             case "Price":
-                return "£" + serviceRow?.price ?? "-";
+                return "£ " + serviceRow?.price ?? "-";
 
             case "Commission":
                 let serviceCommission = commissionRates.find(
                     (item) =>
-                        String(item.type).toUpperCase() ==
+                        String(item.service_type).toUpperCase() ==
                         String(serviceRow?.type).toUpperCase()
                 );
+
                 let serviceCommissionRate = Number(
                     Number(serviceRow?.price) *
                         (
-                            Number(serviceCommission?.commissionRate) / 100
+                            Number(serviceCommission?.commission_rate) / 100
                         ).toFixed(2)
                 ).toFixed(2);
-                return `£${serviceCommissionRate}`;
+                return `£ ${serviceCommissionRate}`;
         }
+    };
+    const handleAddService = () => {
+        navigate(ADD_SERVICE_URL);
     };
     return (
         <div className='travel-services'>
-            <div className='travel-services-header'></div>
+            <div className='travel-services-header'>
+                <Header
+                    type='fW600 fS32 tertiary'
+                    className='travel-services-title'>
+                    Travel Services
+                </Header>
+                <Button
+                    type='button'
+                    variant='primary'
+                    className='travel-services-add'
+                    fontType='fW600 fS18 secondary'
+                    onClick={handleAddService}
+                    preIcon={add}>
+                    Add Service
+                </Button>
+            </div>
             <div className='travel-services-body'>
-                <Table striped className='travel-services-table'>
-                    <thead>
-                        <tr>
-                            {serviceColumns.map((service, key) => (
-                                <th key={`${key}-service-head`}>
-                                    <Header
-                                        type='fS18 tertiary fW500'
-                                        className='travel-service-empty-row'>
-                                        {service}
-                                    </Header>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {travelServices.length <= 0 ? (
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    <Table striped bordered className='travel-services-table'>
+                        <thead>
                             <tr>
-                                <td colSpan={4}>
-                                    <Header type='fW600 fS28 primary'>
-                                        {userRole == ADMIN
-                                            ? "You have added no services."
-                                            : "There are no services."}
-                                    </Header>
-                                </td>
+                                {serviceColumns.map((service, key) => (
+                                    <th
+                                        key={`${key}-service-head`}
+                                        className='travel-services-column-head'>
+                                        <Header
+                                            type='fS21 tertiary fW600'
+                                            className='travel-services-column'>
+                                            {service}
+                                        </Header>
+                                    </th>
+                                ))}
                             </tr>
-                        ) : (
-                            travelServices.map((service, key) => (
-                                <tr key={`${key}-tr-service`}>
-                                    {serviceColumns.map((item, cellKey) => (
-                                        <td
-                                            className='travel-services-cell'
-                                            key={`${key}-ts-cell`}>
-                                            <Header type='fW400 fS18 tertiary'>
-                                                {getServiceCell(item, service)}
-                                            </Header>
-                                        </td>
-                                    ))}
+                        </thead>
+                        <tbody>
+                            {travelServices.length <= 0 ? (
+                                <tr>
+                                    <td colSpan={4}>
+                                        <Header
+                                            type='fW600 fS28 primary'
+                                            className='travel-services-empty-row'>
+                                            {userRole == ADMIN
+                                                ? "You have not added any services."
+                                                : "There are no services."}
+                                        </Header>
+                                    </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </Table>
+                            ) : (
+                                travelServices.map((service, key) => (
+                                    <tr
+                                        key={`${key}-tr-service`}
+                                        className='travel-services-row'>
+                                        {serviceColumns.map((item, cellKey) => (
+                                            <td
+                                                className='travel-services-cell'
+                                                key={`${key}${cellKey}-ts-cell`}>
+                                                <Header type='fW400 fS18 tertiary'>
+                                                    {getServiceCell(
+                                                        item,
+                                                        service
+                                                    )}
+                                                </Header>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </Table>
+                )}
             </div>
         </div>
     );

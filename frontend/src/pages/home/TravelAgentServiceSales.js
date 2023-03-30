@@ -15,16 +15,13 @@ const TravelAgentServiceSales = () => {
 
     const getServiceSales = async () => {
         let travelServiceRes = await fetchTravelServicesAsync();
-        console.log(travelServiceRes);
         dispatch(updateServiceList(travelServiceRes));
         let data = await travelAgentServiceSalesAsync(userId);
-        console.log(data, "DATA");
         if (data?.id) {
             dispatch(updateAgentServiceSales({ data }));
         }
     };
     useEffect(() => {
-        console.log(userId, "USER ID");
         if (userId) getServiceSales();
     }, [userId]);
     return <div className='agent-service-sales'></div>;

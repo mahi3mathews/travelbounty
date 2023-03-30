@@ -1,4 +1,4 @@
-@import "../../App.scss";
+@import "../../styleVariables.scss";
 
 .sidebar {
     background-color: $tertiaryColor;
@@ -31,6 +31,7 @@
         overflow-x: hidden;
     }
     &-logo {
+        cursor: pointer;
         margin: 40px 20px;
         display: flex;
         align-items: center;

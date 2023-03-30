@@ -131,7 +131,7 @@ const Register = () => {
                                     type='submit'
                                     variant='secondary'
                                     fontType='fW600 fS18 tertiary'
-                                    className='register-submit-btn'
+                                    className='register-submit-bttn'
                                     error={mainError}>
                                     Create account
                                 </Button>
@@ -144,7 +144,7 @@ const Register = () => {
                                     onClick={handleLogin}
                                     variant='transparent'
                                     fontType='fW600 fS18 tertiary'
-                                    className='register-submit-btn'>
+                                    className='register-submit-bttn'>
                                     Login here.
                                 </Button>
                             </div>

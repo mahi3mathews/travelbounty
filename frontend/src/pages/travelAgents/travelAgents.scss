@@ -1,0 +1,29 @@
+@import "../../styleVariables.scss";
+
+.travel-agents {
+    &-header {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    &-body {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    &-table {
+        width: 100%;
+    }
+    &-column-head {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    &-empty-row {
+        text-align: center;
+        margin-top: 40px;
+    }
+    &-cell {
+        padding: 10px 0;
+        text-align: center;
+    }
+}

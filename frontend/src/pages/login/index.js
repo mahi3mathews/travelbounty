@@ -27,7 +27,6 @@ const Login = () => {
         if (res.status) {
             setError(res.message);
         } else if (res?.user_id) {
-            console.log(res?.user_id);
             res.userId = res?.user_id;
             delete res.user_id;
             localStorage.setItem("isUserLoggedIn", true);
@@ -101,7 +100,7 @@ const Login = () => {
                                     type='submit'
                                     variant='primary'
                                     fontType='fW600 fS18 secondary'
-                                    className='login-submit-btn'
+                                    className='login-submit-bttn'
                                     error={mainError}>
                                     Login
                                 </Button>
@@ -114,7 +113,7 @@ const Login = () => {
                                     onClick={handleRegister}
                                     variant='transparent'
                                     fontType='fW600 fS18 primary'
-                                    className='login-submit-btn'>
+                                    className='login-submit-bttn'>
                                     Register here.
                                 </Button>
                             </div>

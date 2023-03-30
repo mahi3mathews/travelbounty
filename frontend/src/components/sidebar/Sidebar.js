@@ -19,7 +19,7 @@ const Sidebar = () => {
             id='sidebar-1'
             onMouseEnter={handleHover}
             onMouseLeave={handleLeave}>
-            <div className='sidebar-logo cursor'>
+            <div className='sidebar-logo'>
                 <NavLink to={HOME_URL} className='sidebar-logo-link'>
                     <Icon icon={logo} className='sidebar-logo-img' />
                     <Header
@@ -33,7 +33,7 @@ const Sidebar = () => {
             </div>
             <div className='sidebar-nav-container'>
                 {navLinks.map((nav, key) => {
-                    if (nav.roles.includes(currentUserRole))
+                    if (nav.roles.includes(currentUserRole) && !nav.isNotNav)
                         return (
                             <div
                                 className='sidebar-navlink'

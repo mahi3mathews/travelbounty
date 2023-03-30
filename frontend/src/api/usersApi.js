@@ -6,6 +6,8 @@ const LOGIN_API_URL = `${BASE_API_URL}/login`;
 const REGISTER_ADMIN_API_URL = `${BASE_API_URL}/register-admin`;
 const REGISTER_AGENT_API_URL = `${BASE_API_URL}/register-agent`;
 const USERS_API = `${BASE_API_URL}/users`;
+const agentListAPI = (adminId) => `${BASE_API_URL}/${adminId}/agents`;
+const agentDetailsAPI = (agentId) => `${BASE_API_URL}/agents/${agentId}`;
 
 export const loginAsync = async (userDetails) => {
     try {
@@ -49,6 +51,36 @@ export const getUserDetailsAsync = async (userId) => {
     try {
         const { data } = await getApiCall(`${USERS_API}/${userId}`);
 
+        return data?.data ?? data;
+    } catch (error) {
+        return {
+            message:
+                error?.response?.data?.error ??
+                error?.response?.data?.message ??
+                error.response?.data?.data,
+            status: error.response?.status,
+        };
+    }
+};
+
+export const fetchAgentsAsync = async (agentId) => {
+    try {
+        const { data } = await getApiCall(agentListAPI(agentId));
+        return data?.data;
+    } catch (error) {
+        return {
+            message:
+                error?.response?.data?.error ??
+                error?.response?.data?.message ??
+                error.response?.data?.data,
+            status: error.response?.status,
+        };
+    }
+};
+
+export const fetchAgentDetailsAsync = async (agentId) => {
+    try {
+        const { data } = await getApiCall(agentDetailsAPI(agentId));
         return data?.data ?? data;
     } catch (error) {
         return {

@@ -15,12 +15,19 @@ import {
     SERVICE_URL,
     AGENTS_URL,
     LOGOUT_URL,
+    ADD_SERVICE_URL,
 } from "./route_urls";
 import { ADMIN, AGENT } from "./user_roles";
 
 export const navLinks = [
     { link: HOME_URL, title: "Home", img: home, roles: [ADMIN, AGENT] },
     { link: AGENTS_URL, title: "Travel Agents", img: agents, roles: [ADMIN] },
+    {
+        link: ADD_SERVICE_URL,
+        title: "Add Service",
+        isNotNav: true,
+        roles: [ADMIN],
+    },
     {
         link: SERVICE_URL,
         title: "Travel Services",

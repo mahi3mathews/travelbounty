@@ -17,7 +17,6 @@ function App() {
 
     const setUserDetails = async () => {
         let userRes = await getUserDetailsAsync(localStorage.getItem("userId"));
-        console.log(userRes);
         if (userRes?.user_id) {
             userRes.userId = userRes?.user_id;
             delete userRes?.user_id;
@@ -29,7 +28,6 @@ function App() {
         // Set up check to see if user is still logged in.
 
         const isLoggedIn = localStorage.getItem("isUserLoggedIn") === "true";
-        console.log(userId, "USER ID", isLoggedIn, "IS LOGGED IN");
         setLoggedIn(isLoggedIn);
         if (isLoggedIn && !userId) {
             setUserDetails();

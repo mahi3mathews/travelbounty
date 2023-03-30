@@ -1,0 +1,54 @@
+@import "../../styleVariables.scss";
+.custom-dropdown {
+    width: 100%;
+    position: relative;
+
+    .dropdown-toggle {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+        border: none;
+        background-color: transparent;
+        border-bottom: 2px solid $tertiaryColor;
+        text-align: left;
+        border-radius: 0;
+        &.error {
+            border-bottom: 2px solid $errorColor;
+        }
+    }
+    &-toggle {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+    }
+    &-toggle-text {
+        flex: 1;
+    }
+    .menu {
+        z-index: 1;
+        width: inherit;
+        max-height: 200px;
+        overflow-y: auto;
+        position: absolute;
+        transform: translateY(4px);
+        border-radius: 5px;
+        background-color: $primaryColor;
+        &.hide {
+            display: none;
+        }
+        &.show {
+            display: flex;
+            flex-direction: column;
+        }
+        &-item {
+            margin: 10px;
+            cursor: pointer;
+        }
+        &-container {
+            width: 100%;
+        }
+    }
+    &-error {
+        margin-top: 5px;
+    }
+}
