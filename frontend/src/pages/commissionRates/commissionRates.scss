@@ -1,2 +1,36 @@
+@import "../../styleVariables.scss";
+
 .commission-rates {
+    margin: 70px;
+    height: 100%;
+    &-body {
+        margin: 50px 250px;
+    }
+    &-item {
+        margin: 20px 0;
+    }
+    &-card.card {
+        display: flex;
+        flex-direction: row;
+        background-color: $tertiaryColor;
+        justify-content: space-between;
+    }
+    &-details {
+        display: flex;
+        align-items: center;
+    }
+    &-edit {
+        display: flex;
+        &-rate {
+            &.input-field.form-control {
+                font-weight: 600;
+            }
+        }
+    }
+    &-label {
+        margin-right: 10px;
+    }
+    &-value {
+        flex: 1;
+    }
 }

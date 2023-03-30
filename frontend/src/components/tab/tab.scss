@@ -1,0 +1,11 @@
+@import "../../styleVariables.scss";
+.custom-tab.nav-tabs {
+    .nav-link.active {
+        color: $secondaryColor;
+        background-color: $tertiaryColor;
+    }
+    .nav-link {
+        color: $tertiaryColor;
+        border: none;
+    }
+}

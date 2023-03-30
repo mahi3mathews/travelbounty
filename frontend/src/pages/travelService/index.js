@@ -14,6 +14,7 @@ import { capitalize } from "@mui/material";
 import { fetchCommissionsAsync } from "../../api/commissionApi";
 import { updateCommissions } from "../../redux/commissions/commissionReducer";
 import { Spinner } from "react-bootstrap";
+import { PAGE_HEADER_TYPE } from "../../constants/header_types";
 
 const TravelServices = () => {
     const dispatch = useDispatch();
@@ -84,19 +85,21 @@ const TravelServices = () => {
         <div className='travel-services'>
             <div className='travel-services-header'>
                 <Header
-                    type='fW600 fS32 tertiary'
+                    type={PAGE_HEADER_TYPE}
                     className='travel-services-title'>
                     Travel Services
                 </Header>
-                <Button
-                    type='button'
-                    variant='primary'
-                    className='travel-services-add'
-                    fontType='fW600 fS18 secondary'
-                    onClick={handleAddService}
-                    preIcon={add}>
-                    Add Service
-                </Button>
+                {userRole === ADMIN && (
+                    <Button
+                        type='button'
+                        variant='primary'
+                        className='travel-services-add'
+                        fontType='fW600 fS18 secondary'
+                        onClick={handleAddService}
+                        preIcon={add}>
+                        Add Service
+                    </Button>
+                )}
             </div>
             <div className='travel-services-body'>
                 {isLoading ? (

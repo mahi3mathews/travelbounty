@@ -35,12 +35,6 @@ export const navLinks = [
         roles: [ADMIN, AGENT],
     },
     {
-        link: PAYMENTS_URL,
-        title: "Payments",
-        img: payments,
-        roles: [ADMIN, AGENT],
-    },
-    {
         link: ITINERARY_URL,
         title: "Itineraries",
         img: itinerary,
@@ -51,6 +45,12 @@ export const navLinks = [
         title: "Bookings",
         img: booking,
         roles: [AGENT],
+    },
+    {
+        link: PAYMENTS_URL,
+        title: "Payments",
+        img: payments,
+        roles: [ADMIN, AGENT],
     },
     {
         link: COMMISSIONS_URL,

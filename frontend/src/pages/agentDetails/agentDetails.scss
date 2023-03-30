@@ -1,0 +1,35 @@
+@import "../../styleVariables.scss";
+
+.agent-details {
+    &-header.card {
+        border-radius: 0;
+        background-color: $primaryColor;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    &-title {
+        margin-left: 20px;
+        margin-right: 5px;
+    }
+    &-body {
+        margin: 60px 160px;
+    }
+    &-content.card {
+        background-color: $tertiaryColor;
+        padding: 50px;
+    }
+    &-content {
+        &-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+    }
+}

@@ -1,16 +1,19 @@
 import "./sidebar.scss";
 import logo from "../../icons/logo.svg";
-import Icon from "../image/Icon";
+import Icon from "../icon/Icon";
 import { navLinks } from "../../constants/navLinks";
 import { NavLink } from "react-router-dom";
 import Header from "../header/Header";
 import { useState } from "react";
 import { ADMIN } from "../../constants/user_roles";
 import { HOME_URL } from "../../constants/route_urls";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+    const [currentUserRole] = useSelector((states) => [
+        states?.users?.userDetails?.role,
+    ]);
     const [isHover, setIsHover] = useState(false);
-    const [currentUserRole, setCurrentUserRole] = useState(ADMIN);
     const handleHover = () => setTimeout(() => setIsHover(true), 130);
     const handleLeave = () => setIsHover(false);
     return (

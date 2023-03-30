@@ -1,0 +1,22 @@
+@import "../../styleVariables.scss";
+
+.payments {
+    margin: 70px;
+    height: 100%;
+    .payments-table {
+        margin-top: 40px;
+    }
+    &-empty-row {
+        text-align: center;
+    }
+    &-column-head {
+        text-align: center;
+    }
+    &-header {
+        margin-bottom: 30px;
+    }
+    &-cell {
+        vertical-align: middle;
+        text-align: center;
+    }
+}

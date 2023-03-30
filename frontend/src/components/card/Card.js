@@ -7,7 +7,7 @@ const Card = ({ children, index, className, onClick = () => {} }) => {
         <ReactCard
             key={`${index}-${className}`}
             onClick={onClick}
-            className={`${className ?? ""} card`}>
+            className={`${className ?? ""} custom-card`}>
             {children}
         </ReactCard>
     );

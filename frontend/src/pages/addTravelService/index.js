@@ -14,6 +14,7 @@ import { TravelServiceSchema } from "../../schemas/TravelServiceSchema";
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import { Form } from "react-bootstrap";
+import { PAGE_HEADER_TYPE } from "../../constants/header_types";
 
 const AddTravelService = () => {
     const navigate = useNavigate();
@@ -57,7 +58,7 @@ const AddTravelService = () => {
     return (
         <div className='add-travel-service'>
             <div className='add-travel-service-header'>
-                <Header type='fW600 fS32 tertiary'>Travel Service Form</Header>
+                <Header type={PAGE_HEADER_TYPE}>Travel Service Form</Header>
             </div>
 
             <Formik className='add-travel-service-container'>

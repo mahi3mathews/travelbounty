@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAgentsAsync } from "../../api/usersApi";
 import Header from "../../components/header/Header";
+import { PAGE_HEADER_TYPE } from "../../constants/header_types";
+import { AGENT_DETAILS_URL } from "../../constants/route_urls";
 import { setAgentUsers } from "../../redux/users/userReducer";
 import "./travelAgents.scss";
 
@@ -22,7 +24,7 @@ const TravelAgents = () => {
         dispatch(setAgentUsers(res));
     };
     const handleRowClick = (agent) => {
-        navigate(agent?.user_id);
+        navigate(`${AGENT_DETAILS_URL}/${agent?.user_id}`);
     };
     const getAgentCell = (column, agentInfo) => {
         switch (column) {
@@ -47,7 +49,7 @@ const TravelAgents = () => {
     return (
         <div className='travel-agents-container'>
             <div className='travel-agents-header'>
-                <Header type='fW600 fS32 tertiary'>Travel Agents</Header>
+                <Header type={PAGE_HEADER_TYPE}>Travel Agents</Header>
             </div>
             <div className='travel-agents-body'>
                 {isLoading ? (

@@ -1,0 +1,27 @@
+@import "../../styleVariables.scss";
+
+.custom-modal {
+    .modal {
+        &-content {
+            background-color: $secondaryColor;
+        }
+        &-header {
+            border: none;
+        }
+        &-title {
+            flex: 1;
+        }
+        &-body {
+            margin: 40px;
+        }
+        &-footer {
+            border: none;
+            display: flex;
+            justify-content: center;
+        }
+    }
+    &-header-title {
+        display: flex;
+        justify-content: center;
+    }
+}

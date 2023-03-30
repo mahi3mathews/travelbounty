@@ -1,6 +1,7 @@
 import Header from "../header/Header";
 import "./button.scss";
-import Icon from "../image/Icon";
+import Icon from "../icon/Icon";
+import { ERROR_HEADER_TYPE } from "../../constants/header_types";
 
 const Button = ({
     type,
@@ -25,7 +26,7 @@ const Button = ({
             </button>
 
             {error && (
-                <Header type='error fW700 fS17' className='bttn-error'>
+                <Header type={ERROR_HEADER_TYPE} className='bttn-error'>
                     {error}
                 </Header>
             )}

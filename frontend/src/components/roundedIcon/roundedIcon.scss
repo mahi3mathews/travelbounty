@@ -1,0 +1,22 @@
+@import "../../styleVariables.scss";
+
+.rounded-icon {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    &.error {
+        background-color: $errorColor;
+    }
+    &.primary {
+        background-color: $primaryColor;
+    }
+    &.secondary {
+        background-color: $secondaryColor;
+    }
+    &.tertiary {
+        background-color: $tertiaryColor;
+    }
+}

@@ -2,7 +2,7 @@ import { Dropdown as ReactDropdown } from "react-bootstrap";
 import Header from "../header/Header";
 import "./dropdown.scss";
 import { useEffect, useRef, useState } from "react";
-import Icon from "../image/Icon";
+import Icon from "../icon/Icon";
 
 // Custom dropdown component with common style for entire application
 const Dropdown = ({

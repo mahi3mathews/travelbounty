@@ -12,6 +12,10 @@
         border-bottom: 2px solid $tertiaryColor;
         text-align: left;
         border-radius: 0;
+        display: flex;
+        &:hover {
+            border-bottom: 2px solid $tertiaryColor;
+        }
         &.error {
             border-bottom: 2px solid $errorColor;
         }
