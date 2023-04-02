@@ -32,5 +32,13 @@
         &-content-empty {
             text-align: center;
         }
+        &-content {
+            display: flex;
+            justify-content: center;
+        }
+        &-graph {
+            max-width: 700px;
+            max-height: 700px;
+        }
     }
 }

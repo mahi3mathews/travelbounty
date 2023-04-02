@@ -7,11 +7,13 @@ import { Doughnut } from "react-chartjs-2";
 import chroma from "chroma-js";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Header from "../../components/header/Header";
+import { useRef } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ServiceCommissions = ({ travelServices = [] }) => {
     const dispatch = useDispatch();
+
     const [userId, userRole, serviceCommissions] = useSelector((states) => [
         states?.users?.userDetails?.userId,
         states?.users?.userDetails?.role,
@@ -64,7 +66,10 @@ const ServiceCommissions = ({ travelServices = [] }) => {
                                 You have no commissions yet.
                             </Header>
                         ) : (
-                            <Doughnut data={data} />
+                            <Doughnut
+                                data={data}
+                                className='service-commissions-graph'
+                            />
                         )}
                     </div>
                 </>

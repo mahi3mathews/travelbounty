@@ -35,7 +35,7 @@ const TravelAgents = () => {
             case "Booking count":
                 return agentInfo?.booking_count ?? "-";
             case "Itinerary count":
-                return agentInfo?.booking_count ?? "-";
+                return agentInfo?.itinerary_count ?? "-";
             default:
                 return "-";
         }
@@ -55,7 +55,7 @@ const TravelAgents = () => {
                 {isLoading ? (
                     <Spinner />
                 ) : (
-                    <Table striped bordered className='travel-agents-table'>
+                    <Table striped className='travel-agents-table'>
                         <thead>
                             <tr>
                                 {agentColumns.map((service, key) => (

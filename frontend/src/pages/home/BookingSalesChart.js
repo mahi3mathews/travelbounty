@@ -80,7 +80,6 @@ const BookingSalesChart = ({}) => {
                     .alpha(0.5)
                     .css(),
                 data: bookingSales.map((sale, index) => {
-                    console.log(sale, "SALE", Object.values(sale)[0]);
                     return Object.values(sale)[0];
                 }),
             },
