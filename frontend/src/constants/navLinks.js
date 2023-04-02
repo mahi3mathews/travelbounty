@@ -12,6 +12,8 @@ import {
     PAYMENTS_URL,
     BOOKING_URL,
     ITINERARY_URL,
+    ADD_ITINERARY_URL,
+    ADD_BOOKING_URL,
     SERVICE_URL,
     AGENTS_URL,
     LOGOUT_URL,
@@ -27,6 +29,18 @@ export const navLinks = [
         title: "Add Service",
         isNotNav: true,
         roles: [ADMIN],
+    },
+    {
+        link: ADD_BOOKING_URL,
+        title: "Add Booking",
+        isNotNav: true,
+        roles: [AGENT],
+    },
+    {
+        link: ADD_ITINERARY_URL,
+        title: "Add Itinerary",
+        isNotNav: true,
+        roles: [AGENT],
     },
     {
         link: SERVICE_URL,

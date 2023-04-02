@@ -25,7 +25,6 @@ export const flightDetails = [
         placeholder: "Flight service",
         key: "service_level",
     },
-    { fieldType: "datepicker", key: "start_date", placeholder: "Flight time" },
 ];
 
 export const accommodationDetails = [
@@ -39,32 +38,15 @@ export const accommodationDetails = [
         placeholder: "Accomodation service",
         key: "service_level",
     },
-    {
-        fieldType: "datepicker",
-        key: "start_date",
-        placeholder: "Check-in date",
-    },
-    { fieldType: "datepicker", key: "end_date", placeholder: "Checkout date" },
 ];
 
 export const activityDetails = [
     { fieldType: "text", placeholder: "Activity location", key: "location" },
-    {
-        fieldType: "datepicker",
-        key: "start_date",
-        placeholder: "Activtity start date",
-    },
-    {
-        fieldType: "datepicker",
-        key: "end_date",
-        placeholder: "Activtity end date",
-    },
 ];
 
 export const transportationDetails = [
     { fieldType: "text", placeholder: "Start location", key: "start_loc" },
     { fieldType: "text", placeholder: "Destination location", key: "end_loc" },
-    { fieldType: "datepicker", key: "start_date", placeholder: "Start time" },
     {
         fieldType: "text",
         placeholder: "Transportation service",

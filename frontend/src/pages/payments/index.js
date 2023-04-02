@@ -59,7 +59,8 @@ const Payments = () => {
             data?.agent_id,
             data?.id
         );
-        if (res?.payment) {
+        if (res?.includes("Success")) {
+            setupPayments();
         }
     };
 

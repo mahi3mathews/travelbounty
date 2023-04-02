@@ -1,0 +1,36 @@
+@import "../../styleVariables.scss";
+
+.home {
+    margin: 70px;
+    height: 100%;
+    &-empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &-sales-graph {
+        padding-bottom: 20px;
+    }
+    .agent-service-sales {
+        margin: 40px 0;
+    }
+    .booking-sales-chart {
+        margin: 40px 0;
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            .custom-dropdown {
+                min-width: 120px;
+            }
+        }
+    }
+    .service-commissions {
+        margin: 40px 0;
+        &-header {
+            margin-bottom: 20px;
+        }
+        &-content-empty {
+            text-align: center;
+        }
+    }
+}

@@ -1,4 +1,50 @@
 @import "../../styleVariables.scss";
 
 .add-itinerary-service {
+    margin: 70px;
+    height: 100%;
+    &-container {
+        display: flex;
+        justify-content: center;
+    }
+    &-form {
+        margin: 0 450px;
+        min-width: 300px;
+        @media screen and (max-width: 1590px) and (min-width: 1091px) {
+            margin: 0 200px;
+        }
+        @media screen and (max-width: 1090px) and (min-width: 850px) {
+            margin: 0 80px;
+        }
+        @media screen and (max-width: 849px) {
+            margin: 0;
+        }
+        &-group.price {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    &-submit {
+        max-width: 250px;
+        margin: 50px auto 0;
+    }
+    &-header {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    &-form-group {
+        margin: 20px 0;
+        .form-label {
+            margin-bottom: 5px;
+        }
+    }
+    &-details-date {
+        width: 100%;
+        .react-datetime-picker__wrapper {
+            border: none;
+            border-bottom: 2px solid $tertiaryColor;
+            padding: 15px;
+        }
+    }
 }

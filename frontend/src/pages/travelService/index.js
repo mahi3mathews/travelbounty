@@ -105,7 +105,7 @@ const TravelServices = () => {
                 {isLoading ? (
                     <Spinner />
                 ) : (
-                    <Table striped bordered className='travel-services-table'>
+                    <Table striped className='travel-services-table'>
                         <thead>
                             <tr>
                                 {serviceColumns.map((service, key) => (

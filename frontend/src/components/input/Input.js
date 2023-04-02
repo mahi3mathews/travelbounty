@@ -16,6 +16,8 @@ const Input = ({
     variant,
     error,
     preChar,
+    name = "",
+    maxLength,
 }) => {
     const handleKeyDown = (e) => {
         if (type === "text-number") {
@@ -51,6 +53,7 @@ const Input = ({
         <div className='input'>
             <div className={`input-container ${error ? "error" : variant}`}>
                 <Form.Control
+                    name={name}
                     id={id}
                     required={required}
                     className={`input-field ${className ?? ""}`}
@@ -60,6 +63,7 @@ const Input = ({
                     type={type ?? "text"}
                     onBlur={handleBlur}
                     onKeyDown={handleKeyDown}
+                    maxLength={maxLength}
                 />
                 {postComponent ?? null}
             </div>

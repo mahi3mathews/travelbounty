@@ -2,32 +2,6 @@
 .custom-dropdown {
     width: 100%;
     position: relative;
-
-    .dropdown-toggle {
-        width: 100%;
-        padding: 15px;
-        font-size: 14px;
-        border: none;
-        background-color: transparent;
-        border-bottom: 2px solid $tertiaryColor;
-        text-align: left;
-        border-radius: 0;
-        display: flex;
-        &:hover {
-            border-bottom: 2px solid $tertiaryColor;
-        }
-        &.error {
-            border-bottom: 2px solid $errorColor;
-        }
-    }
-    &-toggle {
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-    }
-    &-toggle-text {
-        flex: 1;
-    }
     .menu {
         z-index: 1;
         width: inherit;
@@ -52,7 +26,82 @@
             width: 100%;
         }
     }
-    &-error {
+    &-toggle-chevron {
         margin-top: 5px;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+        border: none;
+        background-color: transparent;
+        border-bottom: 2px solid $tertiaryColor;
+        text-align: left;
+        border-radius: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &::after {
+            display: none;
+        }
+
+        &.error {
+            border-bottom: 2px solid $errorColor;
+        }
+        &.primary-filler {
+            background-color: $primaryColor;
+            border-radius: 10px;
+            &:active {
+                background-color: $primaryColor;
+                opacity: 0.9;
+            }
+        }
+        &.secondary-filler {
+            background-color: $secondaryColor;
+            border-radius: 10px;
+            &:active {
+                background-color: $secondaryColor;
+                opacity: 0.9;
+            }
+        }
+        &.tertiary-filler {
+            background-color: $tertiaryColor;
+            border-radius: 10px;
+            &:active {
+                background-color: $tertiaryColor;
+                opacity: 0.9;
+            }
+        }
+        &.primary {
+            border-bottom: 2px solid $primaryColor;
+            &:hover {
+                border-bottom: 2px solid $primaryColor;
+            }
+        }
+        &.secondary {
+            border-bottom: 2px solid $secondaryColor;
+            &:hover {
+                border-bottom: 2px solid $secondaryColor;
+            }
+        }
+        &.tertiary {
+            border-bottom: 2px solid $tertiaryColor;
+            &:hover {
+                border-bottom: 2px solid $tertiaryColor;
+            }
+        }
+        &-toggle {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        &-toggle-text {
+            flex: 1;
+        }
+
+        &-error {
+            margin-top: 5px;
+        }
     }
 }

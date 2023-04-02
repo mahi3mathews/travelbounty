@@ -1,4 +1,74 @@
 @import "../../styleVariables.scss";
 
 .booking-service-details {
+    margin: 70px;
+    height: 100%;
+    &-header {
+        text-align: center;
+    }
+    &-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 40px auto;
+    }
+    &-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+    }
+    &-name {
+        display: flex;
+        justify-content: space-between;
+
+        &-status.bg-primary {
+            font-size: 14px;
+            min-width: 60px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-color: $primaryColor !important;
+            border-radius: 10px;
+        }
+    }
+    &-client {
+        display: flex;
+        justify-content: space-between;
+        &-details {
+            text-align: right;
+        }
+    }
+    &-status {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    &-description {
+        margin: 20px 0;
+    }
+    &-date {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    &-price {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &-commission {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &-footer {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 50px;
+        .bttn-container {
+            min-width: 200px;
+        }
+    }
 }

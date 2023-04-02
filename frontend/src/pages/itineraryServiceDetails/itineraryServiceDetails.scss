@@ -1,4 +1,35 @@
 @import "../../styleVariables.scss";
 
 .itinerary-service-details {
+    margin: 70px;
+    height: 100%;
+    &-header {
+        text-align: center;
+    }
+    &-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+    }
+    &-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+    }
+    &-description {
+        margin: 20px 0;
+    }
+    &-price {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &-commission {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }

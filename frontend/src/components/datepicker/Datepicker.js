@@ -16,7 +16,7 @@ const DatePicker = ({
                 minDate={minDate}
                 value={value}
                 placeholderText={placeholderText}
-                className={`${className} datepicker`}
+                className={`${className} datepicker ${error ? "error" : ""}`}
                 onChange={handleChange}
             />
             {error && (

@@ -37,6 +37,8 @@ import AddBookingService from "../pages/addBookingService";
 import AddItineraryService from "../pages/addItineraryService";
 import AgentDetails from "../pages/agentDetails";
 import Payments from "../pages/payments";
+import ItineraryServiceDetails from "../pages/itineraryServiceDetails";
+import BookingServiceDetails from "../pages/bookingServiceDetails";
 
 const AppRouter = ({}) => {
     const navigate = useNavigate();
@@ -47,11 +49,6 @@ const AppRouter = ({}) => {
     ]);
 
     const componentLoader = (component) => (isLoading ? null : component);
-
-    const checkDynamicUrls = (userURL, pathname) => {
-        if (pathname.includes("details")) {
-        }
-    };
 
     useEffect(() => {
         const loggedOutUrls = [LOGIN_URL, REGISTER_URL];
@@ -131,11 +128,11 @@ const AppRouter = ({}) => {
             />
             <Route
                 path={`${BOOKING_DETAILS_URL}/:id`}
-                element={componentLoader(<BookingServices />)}
+                element={componentLoader(<BookingServiceDetails />)}
             />
             <Route
                 path={`${ITINERARY_DETAILS_URL}/:id`}
-                element={componentLoader(<ItineraryServices />)}
+                element={componentLoader(<ItineraryServiceDetails />)}
             />
             <Route
                 path={ADD_BOOKING_URL}

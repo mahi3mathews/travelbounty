@@ -10,4 +10,23 @@
         width: 100%;
         flex: 9;
     }
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        border-radius: 100px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $primaryColor;
+        border-radius: 100px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: $primaryColor;
+    }
 }
