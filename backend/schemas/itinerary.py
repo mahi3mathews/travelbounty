@@ -8,7 +8,8 @@ def create_itinerary_entity(itinerary):
         "services": itinerary["services"],
         "total_price": itinerary["total_price"],
         "name": itinerary["name"],
-        "description": itinerary["description"]
+        "description": itinerary["description"],
+        "total_commission": itinerary["total_commission"]
     }
 
 

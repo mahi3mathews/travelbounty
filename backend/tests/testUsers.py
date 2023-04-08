@@ -24,7 +24,6 @@ class TestUsers(unittest.TestCase):
         b.set_user_id("id1")
         self.assertEqual(b.get_user_id(), "id1")
 
-
     def test_user_email_pwd(self):
         b = Users(Roles.AGENT.value)
         b.set_email("a@g.com")

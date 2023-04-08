@@ -28,6 +28,11 @@ def payment_entity(payment, agent):
 def payment_list_entity(payments, agents):
     payment_list = []
     for payment in payments:
-        agent = [x for x in agents if str(ObjectId(x["_id"])) == payment["agent_id"]]
-        payment_list.append(payment_entity(payment, agent[0]))
+        agent_details = None
+        for agent in agents:
+            if str(ObjectId(agent["_id"])) == payment["agent_id"]:
+                agent_details = agent
+        if agent_details:
+            payment_list.append(payment_entity(payment, agent_details))
+
     return payment_list

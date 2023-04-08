@@ -10,6 +10,7 @@ class Booking(AgentService, Services):
         self.__service_type = 'booking'
         self.__booking_id = ''
         self.__agent_id = agent_id
+        self.__booking_placed = ''
         self.__booking_date = ""
         self.__itinerary_id = ''
         self.__total_commission = 0.0

@@ -35,10 +35,12 @@ class TestApp(unittest.TestCase):
     def test_create_user(self):
         # Mock the database collection and data
         mock_collection = self.mock_db["user"]
+        mock_collection.find_one.return_value = None
         request_data = {"email": "test@example.com", "password": "password", "name": "Test User"}
 
         with self.app.app_context():
             result = create_user({"data": request_data, "role": Roles.ADMIN.value}, self.mock_db)
+        print(result)
         # Check if the result is as expected
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully created administrator.", str(result.data))
@@ -52,7 +54,7 @@ class TestApp(unittest.TestCase):
         booking_list = bookings()
 
         mock_user_collection = MagicMock()
-        mock_user_collection.find.return_value = user_list[1]
+        mock_user_collection.find_one.return_value = user_list[1]
         mock_booking_collection = MagicMock()
         mock_booking_collection.find.return_value = [booking_list[0], booking_list[1]]
 

@@ -19,7 +19,7 @@ class Services:
         return ServiceSales.total_sales(self.__travel_services, service_id_list)
 
     def calculate_sale_by_agent(self, agents):
-        return ServiceSales.services_sold(self.__bookings, self.__travel_services, agents)
+        return ServiceSales.services_sold_by_agents(self.__bookings, self.__travel_services, agents)
 
     def calculate_all_services_sale(self):
         return ServiceSales.all_services_sale(self.__bookings, self.__travel_services)

@@ -24,14 +24,14 @@ class TestBookingSalesByTime(unittest.TestCase):
         booking_time_2 = time(hour=13, minute=0, second=0)
         booking_time_3 = time(hour=18, minute=45, second=0)
         bookings_list = bookings()
-        bookings_list[0]["booking_date"] = datetime.combine(datetime.now(), booking_time_1)
-        bookings_list[1]["booking_date"] = datetime.combine(datetime.now(), booking_time_2)
-        bookings_list[2]["booking_date"] = datetime.combine(datetime.now(), booking_time_3)
-        expected_result = {"8am": 0, "9am": 0, "10am": 100, "11am": 0, "12pm": 0, "1pm": 600, "2pm": 0, "3pm": 0,
-                           "4pm": 0, "5pm": 0, "6pm": 200}
+        bookings_list[0]["created_on"] = datetime.combine(datetime.now(), booking_time_1)
+        bookings_list[1]["created_on"] = datetime.combine(datetime.now(), booking_time_2)
+        bookings_list[2]["created_on"] = datetime.combine(datetime.now(), booking_time_3)
+        expected_result = [{"8am": 0}, {"9am": 0}, {"10am": 100}, {"11am": 0}, {"12pm": 0}, {"1pm": 600}, {"2pm": 0},
+                           {"3pm": 0}, {"4pm": 0}, {"5pm": 0}, {"6pm": 200}]
         daily_sales = b.get_daily_sales(bookings_list)
         self.assertEqual(len(expected_result), len(daily_sales))
-        self.assertDictEqual(expected_result, daily_sales)
+        self.assertListEqual(expected_result, daily_sales)
 
     def test_set_booking_sales_weekly_filter(self):
         b = BookingSalesByTime()
@@ -40,7 +40,8 @@ class TestBookingSalesByTime(unittest.TestCase):
         fri_offset = (4 - today.weekday()) % 7
         start_date = today - timedelta(days=sat_offset)
         end_date = today + timedelta(days=fri_offset)
-        expected_result = {"booking_date": {"$gte": start_date, "$lt": end_date}}
+        expected_result = {"booking_date": {"$gte": datetime.combine(start_date, datetime.min.time()),
+                                            "$lt": datetime.combine(end_date, datetime.min.time())}}
         weekly_filter = b.get_weekly_filter("booking_date")
 
         self.assertIn("booking_date", weekly_filter)
@@ -56,13 +57,13 @@ class TestBookingSalesByTime(unittest.TestCase):
         booking_time_2 = datetime.combine(start_date + timedelta(days=3), time(0, 0, 0))
         booking_time_3 = datetime.combine(start_date + timedelta(days=5), time(0, 0, 0))
         bookings_list = bookings()
-        bookings_list[0]["booking_date"] = booking_time_1
-        bookings_list[1]["booking_date"] = booking_time_2
-        bookings_list[2]["booking_date"] = booking_time_3
-        expected_result = {"Mon": 0, "Tue": 600, "Wed": 0, "Thu": 200, "Fri": 0, "Sat": 0, "Sun": 100}
+        bookings_list[0]["created_on"] = booking_time_1
+        bookings_list[1]["created_on"] = booking_time_2
+        bookings_list[2]["created_on"] = booking_time_3
+        expected_result = [{"Mon": 0}, {"Tue": 600}, {"Wed": 0}, {"Thu": 200}, {"Fri": 0}, {"Sat": 0}, {"Sun": 100}]
         daily_sales = b.get_weekly_sales(bookings_list)
         self.assertEqual(len(expected_result), len(daily_sales))
-        self.assertDictEqual(expected_result, daily_sales)
+        self.assertListEqual(expected_result, daily_sales)
 
     def test_set_booking_sales_monthly_filter(self):
         b = BookingSalesByTime()
@@ -83,16 +84,12 @@ class TestBookingSalesByTime(unittest.TestCase):
         booking_time_2 = datetime(current_year, 6, 30)
         booking_time_3 = datetime(current_year, 9, 19)
         bookings_list = bookings()
-        bookings_list[0]["booking_date"] = booking_time_1
-        bookings_list[1]["booking_date"] = booking_time_2
-        bookings_list[2]["booking_date"] = booking_time_3
-        expected_result = {"Jan": 0, "Feb": 100, "Mar": 0, "Apr": 0, "May": 0, "Jun": 600, "Jul": 0, "Aug": 0,
-                           "Sep": 200, "Oct": 0, "Nov": 0, "Dec": 0}
+        bookings_list[0]["created_on"] = booking_time_1
+        bookings_list[1]["created_on"] = booking_time_2
+        bookings_list[2]["created_on"] = booking_time_3
+        expected_result = [{"Jan": 0}, {"Feb": 100}, {"Mar": 0}, {"Apr": 0}, {"May": 0}, {"Jun": 600}, {"Jul": 0},
+                           {"Aug": 0}, {"Sep": 200}, {"Oct": 0}, {"Nov": 0}, {"Dec": 0}]
 
         monthly_sales = b.get_monthly_sales(bookings_list)
         self.assertEqual(len(expected_result), len(monthly_sales))
-        self.assertDictEqual(expected_result, monthly_sales)
-
-
-
-
+        self.assertListEqual(expected_result, monthly_sales)

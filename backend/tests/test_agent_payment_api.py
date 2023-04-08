@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 from unittest.mock import MagicMock
-from flask import current_app, jsonify
+from flask import current_app
 from datetime import datetime
 from flask_pymongo import ObjectId
 from enums.payment_status import PaymentStatus
@@ -13,8 +13,19 @@ from api_functions.agent_payment_api import update_monthly_payment, create_agent
 
 
 class TestAgentPayment(unittest.TestCase):
+    """
+    This module contains unit tests for the AgentPayment functionality.
+    The following functions are tested:
+    test_update_all_monthly_payments
+    test_update_agent_monthly_payments
+    test_create_agent_incentive
+    test_create_incentive_not_admin
+    """
 
     def setUp(self):
+        """
+        Set up the unit test for AgentPayment.
+        """
         self.app = app
         self.client = self.app.test_client()
         self.mock_db = MagicMock()
@@ -22,6 +33,9 @@ class TestAgentPayment(unittest.TestCase):
             current_app._get_current_object = lambda: app
 
     def test_update_all_monthly_payments(self):
+        """
+        Test the update_all_monthly_payments function in AgentPayment.
+        """
         request_data = {
             "is_admin": True
         }
@@ -54,6 +68,9 @@ class TestAgentPayment(unittest.TestCase):
         mock_db["users"].find.assert_called_once_with()
 
     def test_update_agent_monthly_payments(self):
+        """
+        Test the update_agent_monthly_payments function in AgentPayment.
+        """
         request_data = {
             "is_admin": True,
             "agent_id": str(users()[1]["_id"])
@@ -87,6 +104,9 @@ class TestAgentPayment(unittest.TestCase):
         mock_db["users"].find.assert_called_once_with({"_id": ObjectId(request_data["agent_id"])})
 
     def test_create_agent_incentive(self):
+        """
+        Test the create_agent_incentive function in AgentPayment.
+        """
         request_data = {
             "is_admin": True,
             "agent_id": str(users()[1]["_id"]),
@@ -106,7 +126,7 @@ class TestAgentPayment(unittest.TestCase):
 
         expected_payload = {
             "amount": 104,
-            "pay_date": datetime.now(),
+            "pay_date": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "status": PaymentStatus.NOT_PAID.value,
             "type": "INCENTIVE",
             "agent_id": request_data["agent_id"],
@@ -121,6 +141,9 @@ class TestAgentPayment(unittest.TestCase):
         mock_db["agent_payment"].insert_one.assert_called_with(expected_payload)
 
     def test_create_incentive_not_admin(self):
+        """
+        Test the create_incentive_not_admin function in AgentPayment.
+        """
         request_data = {"is_admin": False}
         mock_payments_collection = MagicMock()
         mock_payments_collection.find.return_value = agent_payments()

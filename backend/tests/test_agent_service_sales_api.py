@@ -4,7 +4,6 @@ from unittest.mock import MagicMock
 from flask import current_app, jsonify
 from datetime import datetime, time, date, timedelta
 from flask_pymongo import ObjectId
-from enums.payment_status import PaymentStatus
 from enums.roles import Roles
 from app.main import app
 from app.service_sales import ServiceSales
@@ -167,7 +166,7 @@ class TestAgentServiceSales(unittest.TestCase):
             "user": mock_users_collection,
             "booking": mock_booking_collection
         }.get(x)
-        expected_res = ServiceSales.services_sold(bookings(), travel_services(), agent_users)
+        expected_res = ServiceSales.services_sold_by_agents(bookings(), travel_services(), agent_users)
 
         with self.app.app_context():
             result = fetch_agents_booking_sales(request_data, mock_db)
@@ -186,8 +185,8 @@ class TestAgentServiceSales(unittest.TestCase):
             "filter": "daily"
         }
         agent_bookings = [bookings()[0], bookings()[1]]
-        agent_bookings[0]["booking_date"] = datetime.combine(datetime.now(), time(hour=10, minute=20, second=0))
-        agent_bookings[1]["booking_date"] = datetime.combine(datetime.now(), time(hour=13, minute=0, second=0))
+        agent_bookings[0]["created_on"] = datetime.combine(datetime.now(), time(hour=10, minute=20, second=0))
+        agent_bookings[1]["created_on"] = datetime.combine(datetime.now(), time(hour=13, minute=0, second=0))
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = agent_bookings
 
@@ -198,7 +197,7 @@ class TestAgentServiceSales(unittest.TestCase):
         expected_query = {
             "$and": [
                 {"agent_id": request_data["agent_id"]},
-                DailySales().get_filter("booking_date")]
+                DailySales().get_filter("created_on")]
         }
         expected_response = DailySales().calculate_sales(agent_bookings)
         with self.app.app_context():
@@ -206,7 +205,7 @@ class TestAgentServiceSales(unittest.TestCase):
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched total price of bookings.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)
 
     def test_agent_total_price_weekly_bookings(self):
@@ -218,8 +217,8 @@ class TestAgentServiceSales(unittest.TestCase):
         agent_bookings = [bookings()[0], bookings()[1]]
         sat_offset = (date.today().weekday() - 5) % 7
         start_date = date.today() - timedelta(days=sat_offset)
-        agent_bookings[0]["booking_date"] = datetime.combine(start_date + timedelta(days=1), time(10, 0, 0))
-        agent_bookings[1]["booking_date"] = datetime.combine(start_date + timedelta(days=5), time(0, 0, 0))
+        agent_bookings[0]["created_on"] = datetime.combine(start_date + timedelta(days=1), time(10, 0, 0))
+        agent_bookings[1]["created_on"] = datetime.combine(start_date + timedelta(days=5), time(0, 0, 0))
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = agent_bookings
 
@@ -230,7 +229,7 @@ class TestAgentServiceSales(unittest.TestCase):
         expected_query = {
             "$and": [
                 {"agent_id": request_data["agent_id"]},
-                WeeklySales().get_filter("booking_date")]
+                WeeklySales().get_filter("created_on")]
         }
         expected_response = WeeklySales().calculate_sales(agent_bookings)
         with self.app.app_context():
@@ -238,7 +237,7 @@ class TestAgentServiceSales(unittest.TestCase):
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched total price of bookings.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)
 
     def test_agent_total_price_monthly_bookings(self):
@@ -249,8 +248,8 @@ class TestAgentServiceSales(unittest.TestCase):
         }
         agent_bookings = [bookings()[0], bookings()[1]]
         current_year = datetime.now().year
-        agent_bookings[0]["booking_date"] = datetime(current_year, 2, 18)
-        agent_bookings[1]["booking_date"] = datetime(current_year, 6, 30)
+        agent_bookings[0]["created_on"] = datetime(current_year, 2, 18)
+        agent_bookings[1]["created_on"] = datetime(current_year, 6, 30)
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = agent_bookings
 
@@ -261,7 +260,7 @@ class TestAgentServiceSales(unittest.TestCase):
         expected_query = {
             "$and": [
                 {"agent_id": request_data["agent_id"]},
-                MonthlySales().get_filter("booking_date")]
+                MonthlySales().get_filter("created_on")]
         }
         expected_response = MonthlySales().calculate_sales(agent_bookings)
         with self.app.app_context():
@@ -269,7 +268,7 @@ class TestAgentServiceSales(unittest.TestCase):
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched total price of bookings.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)
 
     def test_admin_total_price_daily_bookings(self):
@@ -278,9 +277,9 @@ class TestAgentServiceSales(unittest.TestCase):
             "filter": "daily"
         }
         admin_bookings = bookings()
-        admin_bookings[0]["booking_date"] = datetime.combine(datetime.now(), time(hour=10, minute=20, second=0))
-        admin_bookings[1]["booking_date"] = datetime.combine(datetime.now(), time(hour=15, minute=20, second=0))
-        admin_bookings[2]["booking_date"] = datetime.combine(datetime.now(), time(hour=9, minute=20, second=0))
+        admin_bookings[0]["created_on"] = datetime.combine(datetime.now(), time(hour=10, minute=20, second=0))
+        admin_bookings[1]["created_on"] = datetime.combine(datetime.now(), time(hour=15, minute=20, second=0))
+        admin_bookings[2]["created_on"] = datetime.combine(datetime.now(), time(hour=9, minute=20, second=0))
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = admin_bookings
 
@@ -288,14 +287,14 @@ class TestAgentServiceSales(unittest.TestCase):
         mock_db.__getitem__.side_effect = lambda x: {
             "booking": mock_bookings_collection
         }.get(x)
-        expected_query = DailySales().get_filter("booking_date")
+        expected_query = DailySales().get_filter("created_on")
         expected_response = DailySales().calculate_sales(admin_bookings)
         with self.app.app_context():
             result = fetch_total_price_bookings_timely(request_data, mock_db)
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched booking sales.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)
 
     def test_admin_total_price_weekly_bookings(self):
@@ -306,9 +305,9 @@ class TestAgentServiceSales(unittest.TestCase):
         admin_bookings = bookings()
         sat_offset = (date.today().weekday() - 5) % 7
         start_date = date.today() - timedelta(days=sat_offset)
-        admin_bookings[0]["booking_date"] = datetime.combine(start_date + timedelta(days=1), time(10, 0, 0))
-        admin_bookings[1]["booking_date"] = datetime.combine(start_date + timedelta(days=3), time(10, 0, 0))
-        admin_bookings[2]["booking_date"] = datetime.combine(start_date + timedelta(days=5), time(10, 0, 0))
+        admin_bookings[0]["created_on"] = datetime.combine(start_date + timedelta(days=1), time(10, 0, 0))
+        admin_bookings[1]["created_on"] = datetime.combine(start_date + timedelta(days=3), time(10, 0, 0))
+        admin_bookings[2]["created_on"] = datetime.combine(start_date + timedelta(days=5), time(10, 0, 0))
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = admin_bookings
 
@@ -324,7 +323,7 @@ class TestAgentServiceSales(unittest.TestCase):
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched booking sales.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)
 
     def test_admin_total_price_weekly_bookings(self):
@@ -334,9 +333,9 @@ class TestAgentServiceSales(unittest.TestCase):
         }
         admin_bookings = bookings()
         current_year = datetime.now().year
-        admin_bookings[0]["booking_date"] = datetime(current_year, 2, 18)
-        admin_bookings[1]["booking_date"] = datetime(current_year, 7, 19)
-        admin_bookings[2]["booking_date"] = datetime(current_year, 10, 20)
+        admin_bookings[0]["created_on"] = datetime(current_year, 2, 18)
+        admin_bookings[1]["created_on"] = datetime(current_year, 7, 19)
+        admin_bookings[2]["created_on"] = datetime(current_year, 10, 20)
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = admin_bookings
 
@@ -344,7 +343,7 @@ class TestAgentServiceSales(unittest.TestCase):
         mock_db.__getitem__.side_effect = lambda x: {
             "booking": mock_bookings_collection
         }.get(x)
-        expected_query = MonthlySales().get_filter("booking_date")
+        expected_query = MonthlySales().get_filter("created_on")
         expected_response = MonthlySales().calculate_sales(admin_bookings)
 
         with self.app.app_context():
@@ -352,5 +351,5 @@ class TestAgentServiceSales(unittest.TestCase):
         res = result.get_json()
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully fetched booking sales.", str(result.data))
-        self.assertDictEqual(expected_response, res["data"])
+        self.assertListEqual(expected_response, res["data"])
         mock_db["booking"].find.assert_called_with(expected_query)

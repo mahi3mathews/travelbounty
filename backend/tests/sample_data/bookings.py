@@ -12,6 +12,7 @@ def bookings():
         "total_commission": 20,
         "total_price": 100,
         "status": "PAID",
+        "created_on": datetime.now(),
         "payment_type": "CARD",
         "client_info": {
             "name": "Sam",
@@ -28,6 +29,7 @@ def bookings():
             "total_commission": 50,
             "total_price": 600,
             "status": "PAID",
+            "created_on": datetime.now(),
             "payment_type": "CARD",
             "client_info": {
                 "name": "Robin T",
@@ -46,6 +48,7 @@ def bookings():
             "total_price": 200,
             "status": "PAID",
             "payment_type": "CARD",
+            "created_on": datetime.now(),
             "client_info": {
                 "name": "Mariya T",
                 "phone_number": "01838432493",

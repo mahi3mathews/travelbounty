@@ -3,11 +3,11 @@ from flask_pymongo import ObjectId
 
 
 def commission_entity(commission):
-    return jsonify({
+    return {
         "id": str(ObjectId(commission["_id"])),
         "commission_rate": commission["commission_rate"],
         "service_type": commission["service"]
-    })
+    }
 
 
 def commission_list_entity(commissions):

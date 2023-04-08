@@ -113,6 +113,7 @@ class TestAgentService(unittest.TestCase):
         request_data = {
             "type": "itinerary",
             "service_id": str(itinerary_details["_id"]),
+            "agent_id": ""
         }
 
         with self.app.app_context():
@@ -134,7 +135,7 @@ class TestAgentService(unittest.TestCase):
         mock_booking_collection = MagicMock()
         mock_booking_collection.find_one.return_value = booking_details
         mock_itineraries_collection = MagicMock()
-        mock_itineraries_collection.find.return_value = itineraries()
+        mock_itineraries_collection.find_one.return_value = itineraries()[0]
 
         mock_db = MagicMock()
         mock_db.__getitem__.side_effect = lambda x: {
@@ -146,6 +147,7 @@ class TestAgentService(unittest.TestCase):
         request_data = {
             "type": "booking",
             "service_id": str(booking_details["_id"]),
+            "agent_id": ""
         }
 
         with self.app.app_context():
@@ -223,11 +225,13 @@ class TestAgentService(unittest.TestCase):
         request_data = {
             "is_agent": True,
             "service_id": bookings()[0]["_id"],
-            "service_type": "booking"
+            "service_type": "booking",
+            "agent_id": ""
         }
         mock_collections = {
             'itineraries': MagicMock(),
-            "bookings": MagicMock()
+            "bookings": MagicMock(),
+            "agent_payments": MagicMock()
         }
 
         with self.app.app_context():
@@ -240,11 +244,14 @@ class TestAgentService(unittest.TestCase):
         request_data = {
             "is_agent": True,
             "service_id": itineraries()[0]["_id"],
-            "service_type": "itinerary"
+            "service_type": "itinerary",
+            "agent_id": ""
+
         }
         mock_collections = {
             'itineraries': MagicMock(),
-            "bookings": MagicMock()
+            "bookings": MagicMock(),
+            "agent_payments": MagicMock()
         }
 
         with self.app.app_context():

@@ -25,16 +25,17 @@ def users_list_entity(users):
     return formatted_users
 
 
-def agent_details_entity(user):
+def agent_details_entity(user, booking_info):
     response = {
         "user_id": str(ObjectId(user['_id'])),
         "email": user["email"],
         "name": user["name"],
         "role": user["role"],
-        "total_bookings_sale": user["total_bookings_sale"],
-        "total_monthly_commission": user["total_monthly_commission"]
     }
     if user["role"] != Roles.ADMIN.value:
+        response.update({"total_bookings_sale": booking_info["total_bookings_sale"],
+                         "month_bookings_sale": booking_info["month_bookings_sale"],
+                         "total_monthly_commission": booking_info["total_monthly_commission"]})
         if "itinerary_count" not in user or "booking_count" not in user:
             response.update({"itinerary_count": 0, "booking_count": 0})
         else:
