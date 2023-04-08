@@ -37,7 +37,6 @@ def fetch_total_price_bookings_timely(request_data, db_collections):
             response = booking_sales.get_monthly_sales(list(m_bookings))
         elif query_filter == "weekly":
             w_bookings = bookings_collection.find(booking_sales.get_weekly_filter("created_on"))
-            print(w_bookings)
             response = booking_sales.get_weekly_sales(list(w_bookings))
 
     return jsonify({"data": response, "message": "Successfully fetched booking sales."})
@@ -111,7 +110,6 @@ def fetch_agents_booking_sales(request_data, db_collections):
         booking_obj.set_services(list(services_collection.find()))
         booking_obj.set_bookings(list(bookings_collection.find()))
         output = booking_obj.calculate_sale_by_agent(list(user_collection.find({"role": Roles.AGENT.value})))
-        print("OP", output)
         return jsonify({"data": output, "message": "Successfully fetched the services booked by agents."})
 
 
