@@ -17,7 +17,6 @@ from schemas.services import service_list_entity
 from tests.sample_data.travel_services import travel_services
 from tests.sample_data.bookings import bookings
 from tests.sample_data.users import users
-from tests.sample_data.itineraries import itineraries
 
 from api_functions.agent_service_sales_api import fetch_service_sales, fetch_agent_service_commissions, \
     fetch_agents_booking_sales, fetch_agent_total_price_bookings_timely, fetch_total_price_bookings_timely
@@ -277,9 +276,12 @@ class TestAgentServiceSales(unittest.TestCase):
             "filter": "daily"
         }
         admin_bookings = bookings()
-        admin_bookings[0]["created_on"] = datetime.combine(datetime.now(), time(hour=10, minute=20, second=0))
-        admin_bookings[1]["created_on"] = datetime.combine(datetime.now(), time(hour=15, minute=20, second=0))
-        admin_bookings[2]["created_on"] = datetime.combine(datetime.now(), time(hour=9, minute=20, second=0))
+        admin_bookings[0]["created_on"] = datetime.combine(
+            datetime.now(), time(hour=10, minute=20, second=0))
+        admin_bookings[1]["created_on"] = datetime.combine(
+            datetime.now(), time(hour=15, minute=20, second=0))
+        admin_bookings[2]["created_on"] = datetime.combine(
+            datetime.now(), time(hour=9, minute=20, second=0))
         mock_bookings_collection = MagicMock()
         mock_bookings_collection.find.return_value = admin_bookings
 

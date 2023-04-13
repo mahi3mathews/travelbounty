@@ -3,6 +3,7 @@ from flask_pymongo import ObjectId
 
 from schemas.errors import create_error
 from schemas.services import service_entity_create
+from enums.service_types import ServiceTypes
 
 
 def calculate_commission(rate, price):
@@ -37,6 +38,8 @@ def create_travel_service(request_data, db_collections):
             not service_data["type"] or not service_data["price"] or \
             not service_data["details"]:
         return create_error(400, "Incomplete/Incorrect service details provided.")
+    elif service_data["type"] not in ServiceTypes.__members__.values():
+        return create_error(400, "Invalid service type provided.")
     else:
 
         commission = commission_collection.find_one({"service": service_data["type"]})

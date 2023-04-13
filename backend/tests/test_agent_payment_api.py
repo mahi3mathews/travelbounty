@@ -9,7 +9,7 @@ from app.main import app
 from tests.sample_data.agent_payments import agent_payments
 from tests.sample_data.users import users
 
-from api_functions.agent_payment_api import update_monthly_payment, create_agent_incentive
+from api_functions.agent_payment_api import update_monthly_payment, create_agent_incentive, update_single_payment
 
 
 class TestAgentPayment(unittest.TestCase):
@@ -102,6 +102,31 @@ class TestAgentPayment(unittest.TestCase):
         mock_db["agent_payments"].find.call_args_list[0] == mock.call(expected_query)
         mock_db["agent_payments"].find.call_args_list[0] == mock.call()
         mock_db["users"].find.assert_called_once_with({"_id": ObjectId(request_data["agent_id"])})
+
+    def test_update_agent_single_payment(self):
+        """
+        Test the update_single_payment function in AgentPayment.
+        """
+        request_data = {
+            "is_admin": True,
+            "agent_id": str(users()[1]["_id"]),
+            "data": {"payment_id": agent_payments()[0]["_id"]}
+        }
+        mock_payments_collection = MagicMock()
+        mock_payments_collection.find.return_value = agent_payments()
+        mock_db = MagicMock()
+        mock_db.__getitem__.side_effect = lambda x: {
+            "agent_payments": mock_payments_collection
+        }.get(x)
+
+        expected_query = {"$set": {"status": PaymentStatus.PAID.value}}
+        with self.app.app_context():
+            result = update_single_payment(request_data, mock_db)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Successfully updated single payment.", str(result.data))
+        mock_db["agent_payments"].update_one.call_args_list[0] == mock.call(expected_query)
+        mock_db["agent_payments"].update_one.assert_called_once_with(
+            {"_id": ObjectId(request_data["data"]["payment_id"])}, expected_query)
 
     def test_create_agent_incentive(self):
         """

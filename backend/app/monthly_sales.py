@@ -7,8 +7,8 @@ class MonthlySales(BookingSales):
         super().__init__()
 
     def calculate_sales(self, bookings):
-        result = [{"Jan": 0}, {"Feb": 0}, {"Mar": 0}, {"Apr": 0}, {"May": 0}, {"Jun": 0}, {"Jul": 0}, {"Aug": 0},
-                  {"Sep": 0}, {"Oct": 0}, {"Nov": 0}, {"Dec": 0}]
+        result = [{"Jan": 0}, {"Feb": 0}, {"Mar": 0}, {"Apr": 0}, {"May": 0}, {"Jun": 0},
+                  {"Jul": 0}, {"Aug": 0}, {"Sep": 0}, {"Oct": 0}, {"Nov": 0}, {"Dec": 0}]
 
         for booking in bookings:
             b_date = str(booking["created_on"])

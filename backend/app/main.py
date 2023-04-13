@@ -442,7 +442,8 @@ def post_agent_incentive(admin_id, agent_id):
 @app.route('/api/v1/service-sales/time', methods=["GET"])
 def get_total_price_bookings_timely():
     """
-    Route to fetch the total price of bookings made in a specific time period (daily, weekly, monthly).
+    Route to fetch the total price of bookings made in a specific time
+    period (daily, weekly, monthly).
     Returns:
     - JSON object with data and message keys.
     - data: List of dictionaries with booking sales data for each time period.

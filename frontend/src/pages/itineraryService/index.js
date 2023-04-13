@@ -59,6 +59,12 @@ const ItineraryServices = () => {
             <div className='itinerary-service-body'>
                 {isLoading ? (
                     <Spinner />
+                ) : itineraries?.length <= 0 ? (
+                    <Header
+                        type='fS32 fW500 tertiary'
+                        className='booking-service-body-empty'>
+                        There are no itineraries.
+                    </Header>
                 ) : (
                     <div className='itinerary-service-list'>
                         {itineraries.map((item, key) => {

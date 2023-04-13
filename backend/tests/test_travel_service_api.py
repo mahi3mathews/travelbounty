@@ -49,6 +49,36 @@ class TestTravelService(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully created", str(result.data))
 
+    def test_create_travel_service_invalid_type(self):
+        mock_service_collection = MagicMock()
+        mock_service_collection.find.return_value = travel_services()
+        mock_commission_collection = MagicMock()
+        mock_commission_collection.find.return_value = commissions()
+        mock_db = MagicMock()
+        mock_db.__getitem__.side_effect = lambda x: {
+            "service": mock_service_collection,
+            "commissions": mock_commission_collection,
+        }.get(x)
+        request_data = {
+            "is_admin": True,
+            "data": {
+                "name": "Emirates",
+                "type": "FUN_ACTIVITY",
+                "price": 780,
+                "details": {
+                    "flight": "E349",
+                    "start_loc": "Dubai",
+                    "end_loc": "New York"
+                }
+            }
+        }
+
+        with self.app.app_context():
+            result = create_travel_service(request_data, mock_db)
+
+        self.assertEqual(result.status_code, 400)
+        self.assertEqual("Invalid service type provided.", result.get_json()["error"])
+
     def test_fetch_agent_details(self):
 
         travel_service_list = travel_services()

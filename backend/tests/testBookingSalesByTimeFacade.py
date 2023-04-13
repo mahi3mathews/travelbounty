@@ -4,7 +4,7 @@ from app.booking_sales_by_time import BookingSalesByTime
 from tests.sample_data.bookings import bookings
 
 
-class TestBookingSalesByTime(unittest.TestCase):
+class TestBookingSalesByTimeFacade(unittest.TestCase):
 
     def test_set_booking_sales_daily_filter(self):
         b = BookingSalesByTime()

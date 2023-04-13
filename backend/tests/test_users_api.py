@@ -40,10 +40,22 @@ class TestApp(unittest.TestCase):
 
         with self.app.app_context():
             result = create_user({"data": request_data, "role": Roles.ADMIN.value}, self.mock_db)
-        print(result)
         # Check if the result is as expected
         self.assertEqual(result.status_code, 200)
         self.assertIn("Successfully created administrator.", str(result.data))
+
+    def test_create_user_invalid_role(self):
+        # Mock the database collection and data
+        mock_collection = self.mock_db["user"]
+        mock_collection.find_one.return_value = None
+        request_data = {"email": "test@example.com", "password": "password", "name": "Test User"}
+
+        with self.app.app_context():
+            result = create_user({"data": request_data, "role": "MANAGER"}, self.mock_db)
+        payload = result.get_json()
+        # Check if the result is as expected
+        self.assertEqual(result.status_code, 400)
+        self.assertEqual("User role provided is not valid", payload["error"])
 
     def test_fetch_agent_details(self):
 

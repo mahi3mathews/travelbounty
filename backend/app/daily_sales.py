@@ -7,8 +7,8 @@ class DailySales(BookingSales):
         super().__init__()
 
     def calculate_sales(self, bookings):
-        result = [{"8am": 0}, {"9am": 0}, {"10am": 0}, {"11am": 0}, {"12pm": 0}, {"1pm": 0}, {"2pm": 0}, {"3pm": 0},
-                  {"4pm": 0}, {"5pm": 0}, {"6pm": 0}]
+        result = [{"8am": 0}, {"9am": 0}, {"10am": 0}, {"11am": 0}, {"12pm": 0}, {"1pm": 0},
+                  {"2pm": 0}, {"3pm": 0}, {"4pm": 0}, {"5pm": 0}, {"6pm": 0}]
 
         for booking in bookings:
             b_date = str(booking["created_on"])

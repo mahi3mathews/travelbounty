@@ -41,20 +41,22 @@ def create_user(request_details, db_collections):
     if role == Roles.ADMIN.value:
         admin_user = user_collection.find_one({"role": Roles.ADMIN.value})
     if not admin_user:
-        if not request_data:
-            return create_error(400, "Bad request!")
-        elif "email" not in request_data or "password" not in request_data or "name" not in request_data or not \
-                request_data["email"] or not request_data["password"] or not request_data["name"]:
-            return create_error(400, "Incorrect/Incomplete details provided.")
-        else:
-            user_collection.insert_one({
-                "email": request_data["email"],
-                "password": request_data["password"],
-                "name": request_data["name"],
-                "role": role
-            })
-            role_value = 'administrator.' if role == Roles.ADMIN.value else "agent."
-            return jsonify({"data": "Successfully created " + role_value})
+        if role == Roles.AGENT.value:
+            if not request_data:
+                return create_error(400, "Bad request!")
+            elif "email" not in request_data or "password" not in request_data or "name" not in request_data or not \
+                    request_data["email"] or not request_data["password"] or not request_data["name"]:
+                return create_error(400, "Incorrect/Incomplete details provided.")
+            else:
+                user_collection.insert_one({
+                    "email": request_data["email"],
+                    "password": request_data["password"],
+                    "name": request_data["name"],
+                    "role": role
+                })
+                role_value = 'administrator.' if role == Roles.ADMIN.value else "agent."
+                return jsonify({"data": "Successfully created " + role_value})
+        return create_error(400, "User role provided is not valid")
     else:
         return create_error(401, "An admin user already exists.")
 
@@ -109,7 +111,7 @@ def fetch_agent_details(request_data, db_collections):
     agent_bookings = bookings_collection.find({"agent_id": agent_id})
 
     month_start = datetime.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    month_end = month_start + timedelta(days=32-month_start.day) - timedelta(seconds=1)
+    month_end = month_start + timedelta(days=32 - month_start.day) - timedelta(seconds=1)
     monthly_query = {"$and": [{"agent_id": agent_id}, {"booking_date": {"$gte": month_start, "$lte": month_end}}]}
     agent_month_bookings = bookings_collection.find(monthly_query)
     for booking in agent_bookings:
